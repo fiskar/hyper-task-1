@@ -3,71 +3,60 @@
 <head>
 	<meta charset='UTF-8'>
 	<title>Hiper-task-1</title>
-  <style>
-    table {
-      border-collapse: collapse;
-    }
-    td {
-      border: 2px solid grey;
-      text-align: center;
-      padding: 3px;
-    }
-  </style>
+	<style>
+		tr:first-child td { /*оформление первой строки*/
+			border-bottom: 1px dashed black;
+		}
+		tr td:last-child { /*оформление последнего столбика*/
+			border-right: none;
+		}
+		td { /*оформление ячеек*/
+			text-align: left;
+			padding: 3px;
+			border-right: 1px solid black;
+		}
+	</style>
 </head>
 <body>
 	<script>
-    let N = prompt('Введите положетельное число');
-    let OP = prompt('Введите операцию', '+ - * /');
-    let newTable = document.createElement('table');
-    for (let i = 0; i <= N; i++) {
-      let newRow = newTable.insertRow(i);
-      for (let j = 0; j <= N; j++) {
-        let newCell = newRow.insertCell(j);
-        let getOP = function() {
-          switch(OP) {
-            case '+':
-            newCell.innerHTML = i + j;
-            break;
-            case '-':
-            newCell.innerHTML = i - j;
-            break;
-            case '*':
-            newCell.innerHTML = i * j;
-            break;
-            case '/':
-            newCell.innerHTML = parseFloat((i / j).toFixed(2));
-            break;
-          }
-        }
-        if (i === 0 && j === 0) {
-          newCell.innerHTML = OP;
-        }
-        else if (i === 0 && j > 0) {
-          newCell.innerHTML = j;
-        }
-        else if (i > 0 && j === 0) {
-          newCell.innerHTML = i;
-        } else {
-          getOP();
-        }
-      }
-    }
-    document.body.append(newTable);
-
-    // let table = document.createElement('table');
-    // let N = prompt('N');
-    // let OP = prompt('OP', '+ - x /');
-    // for (let i=0; i<=N; i++) {
-    //   let row = document.createElement('tr');
-    //   for (let j=0; j<=N; j++) {
-    //     let cell = document.createElement(i === 0 || j === 0 ? 'th' : 'td');
-    //     cell.append(document.createTextNode(parseFloat((i/j).toFixed(2))));
-    //     row.append(cell);
-    //   }
-    //   table.append(row);
-    // }
-    // document.body.append(table);
-  
-  </script>
+		let N = prompt('Введите положетельное число');
+		let OP = prompt('Введите операцию', '+ - * /');
+		let newTable = document.createElement('table'); //создание таблицы
+		for (let i = 0; i <= N; i++) {
+			let newRow = newTable.insertRow(i); ///циклическое создание строк
+			for (let j = 0; j <= N; j++) {
+				let newCell = newRow.insertCell(j); ///циклическое создание ячеек
+				let getOP = function() { //функция преобразования строчного значения введенного знака в оператор
+					switch(OP) {
+						case '+':
+						newCell.innerHTML = i + j;
+						break;
+						case '-':
+						newCell.innerHTML = i - j;
+						break;
+						case '*':
+						newCell.innerHTML = i * j;
+						break;
+						case '/':
+						newCell.innerHTML = parseFloat((i / j).toFixed(2)); ///отсекаем лишние знаки после запятой и преобразуем результат в число для корректной записи целых результатов
+						break;
+					}
+				}
+				if (i === 0 && j === 0) {
+					newCell.innerHTML = OP; ///наполнение ячейки введенным знаком
+				}
+				else if (i === 0 && j > 0) { 
+					newCell.innerHTML = j; ///наполнение шапки
+				}
+				else if (i > 0 && j === 0) {
+					newCell.innerHTML = i; ///наполнение перого столбика
+				}
+				else {
+					getOP(); ///наполение таблицы вычисленными значениями
+				}
+			}
+		}
+		document.body.append(newTable); ///добавление полученной таблицы на страницу
+	</script>
 </body>
 </html>
